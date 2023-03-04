@@ -5,6 +5,7 @@ var Comment = mongoose.model("Comment");
 var User = mongoose.model("User");
 var auth = require("../auth");
 const { sendEvent } = require("../../lib/event");
+const fs = require('fs')
 
 // Preload item objects on routes with ':item'
 router.param("item", function(req, res, next, slug) {
@@ -184,6 +185,10 @@ router.put("/:item", auth.required, function(req, res, next) {
 
       if (typeof req.body.item.image !== "undefined") {
         req.item.image = req.body.item.image;
+      }
+
+          if (typeof req.body.item.image === 'undefined'){
+        req.body.item.image = fs.readFileSync('frontend/src/components/images/placeholder.png')
       }
 
       if (typeof req.body.item.tagList !== "undefined") {
