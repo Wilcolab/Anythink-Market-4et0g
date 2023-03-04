@@ -195,6 +195,8 @@ router.put("/:item", auth.required, function(req, res, next) {
         req.item.tagList = req.body.item.tagList;
       }
 
+      
+
       req.item
         .save()
         .then(function(item) {
